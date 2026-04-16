@@ -46,3 +46,19 @@ body:
       placeholder: ex. /cluster/projects/nn0000k/...
     validations:
       required: false
+  - type: input
+    id: RUN_REFDATE
+    attributes:
+      label: RUN_REFDATE
+      description: Restart date for a branch or hybrid run (RUN_REFDATE), if applicable
+      placeholder: ex. 0046-01-01
+    validations:
+      required: false
+  - type: input
+    id: RUN_REFTOD
+    attributes:
+      label: RUN_REFTOD
+      description: Restart time of day for a branch or hybrid run (RUN_REFTOD), if applicable
+      value: 00000
+    validations:
+      required: false
