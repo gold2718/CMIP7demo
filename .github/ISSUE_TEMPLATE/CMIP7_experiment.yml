@@ -66,6 +66,7 @@ body:
       required: true
 - type: markdown
   attributes:
-    value: |
-      ---
-      "## Do not enter anything below, this section is automated"
+    value: "---"
+- type: markdown
+  attributes:
+    value: "## Do not enter anything below, this section is automated"
