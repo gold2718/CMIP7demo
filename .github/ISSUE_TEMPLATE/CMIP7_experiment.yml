@@ -54,14 +54,6 @@ body:
       placeholder: ex. 0046-01-01
     validations:
       required: false
-  - type: input
-    id: RUN_REFTOD
-    attributes:
-      label: RUN_REFTOD
-      description: Restart time of day for a branch or hybrid run (RUN_REFTOD), if applicable
-      placeholder: "00000"
-    validations:
-      required: false
   - type: dropdown
     id: project
     attributes:
