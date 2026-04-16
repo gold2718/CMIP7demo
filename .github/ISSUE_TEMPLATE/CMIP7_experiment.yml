@@ -38,3 +38,11 @@ body:
         - hybrid
     validations:
       required: true
+  - type: input
+    id: RUN_REFCASE
+    attributes:
+      label: RUN_REFCASE
+      description: Location of a branch or hybrid dataset (RUN_REFCASE), if applicable
+      placeholder: ex. /cluster/projects/nn0000k/...
+    validations:
+      required: false
