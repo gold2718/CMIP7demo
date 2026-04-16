@@ -54,8 +54,3 @@ body:
       placeholder: ex. 0046-01-01
     validations:
       required: false
-- type: markdown
-  attributes:
-    value: |
-      ---
-      "## Do not enter anything below, this section is automated"
