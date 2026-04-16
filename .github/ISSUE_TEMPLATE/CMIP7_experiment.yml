@@ -1,5 +1,5 @@
-name: new CMIP7 experiment
-description: Configure a CMIP7 experiment
+name: "new CMIP7 experiment"
+description: "Configure a CMIP7 experiment"
 title: "DO NOT USE, WILL BE OVERWRITTEN!"
 labels: []
 body:
