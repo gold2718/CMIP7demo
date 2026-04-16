@@ -1,80 +1,80 @@
-name: Bug Report
-description: File a CAM-Nor bug report (remember to search existing issues and the GitHub discussions first)
-title: "Put brief (<65 char) bug title here!"
-labels: ["bug"]
+name: new CMIP7 experiment
+description: Configure a CMIP7 experiment
+title: "DO NOT USE, WILL BE OVERWRITTEN!"
+labels: []
 body:
-  - type: textarea
-    id: what-happened
+  - type: dropdown
+    id: compset
     attributes:
-      label: What happened?
-      description: Also - what did you expect to happen?
-      placeholder: Write a description here.
-    validations:
-      required: true
-  - type: textarea
-    id: steps-to-reproduce
-    attributes:
-      label: What are the steps to reproduce the bug?
-      description: How can we see this issue?
-      placeholder: ex. Run the case in /cluster/work/users/...
-    validations:
-      required: true
-  - type: input
-    id: cam-tag
-    attributes:
-      label: What CAM-Nor tag were you using?
-      description: Type "git describe" to see the tag
-      placeholder: ex. noresm_v4_cam6_3_112
+      label: Experiment compset
+      multiple: false
+      options:
+        - piControl, concentration driven (N1850)
+        - piControl, emissions driven (N1850ems)
+        - historical, concentration (NHIST)
+        - historical, emissions (NHISTems)
+        - N2000
+        - N2000ems
+        - ssp999
     validations:
       required: true
   - type: dropdown
-    id: machine
+    id: resolution
     attributes:
-      label: What machine were you running CAM (or NorESM) on?
-      multiple: true
+      label: Experiment resolution (grid)
+      multiple: false
       options:
-        - Betzy
-        - Docker container
-        - Personal Computer
-        - Other (please explain below)
+        - ne30pg3_tn14
+        - ne16pg3_tn14
     validations:
       required: true
   - type: dropdown
-    id: compiler
+    id: run_type
     attributes:
-      label: What compiler were you using?
-      multiple: true
+      label: Experiment run time
+      multiple: false
       options:
-        - Intel
-        - GNU
-        - Other (please specify below)
+        - initial
+        - branch
+        - hybrid
     validations:
       required: true
   - type: input
-    id: case-directory
+    id: RUN_REFCASE
     attributes:
-      label: Path to a case directory, if applicable
-      description: The full path to a case in which the error occurred
+      label: RUN_REFCASE
+      description: Location of a branch or hybrid dataset (RUN_REFCASE), if applicable
       placeholder: ex. /cluster/projects/nn0000k/...
     validations:
       required: false
-  - type: dropdown
-    id: implemenation
+  - type: input
+    id: RUN_REFDATE
     attributes:
-      label: Will you be addressing this bug yourself?
-      description: If Yes, please also assign this issue to yourself (if possible)
-      multiple: false
-      options:
-        - "Yes"
-        - "Yes, but I will need some help"
-        - "No"
-    validations:
-      required: true
-  - type: textarea
-    id: extra-info
-    attributes:
-      label: Extra info
-      description: Please provide any additional information here that you think might be relevant
-      placeholder: Write a description here.
+      label: RUN_REFDATE
+      description: Restart date for a branch or hybrid run (RUN_REFDATE), if applicable
+      placeholder: ex. 0046-01-01
     validations:
       required: false
+  - type: input
+    id: RUN_REFTOD
+    attributes:
+      label: RUN_REFTOD
+      description: Restart time of day for a branch or hybrid run (RUN_REFTOD), if applicable
+      value: 00000
+    validations:
+      required: false
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project number
+      multiple: false
+      options:
+        - NN9560K
+      default: 0
+    validations:
+      required: true
+- type: markdown
+  attributes:
+    value: |
+      ---
+      "## Do not enter anything below, this section is automated"
