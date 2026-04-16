@@ -1,0 +1,48 @@
+name: Issue Handler & Reporting
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write  # Required to edit issue title/body
+      contents: read # Required to checkout code for scripts
+    
+    steps:
+      # 1. Checkout the repository code so scripts are available
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      
+      # 3. Install Dependencies
+      - name: Install Dependencies
+        run: |
+          pip install requests pygithub
+          # Add other requirements from your requirements.txt here
+
+      # 4. Step A: Parse and edit new or edited issue
+      - name: Run New Issue Script
+        if: github.event.action in ['opened', 'edited']
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          python scripts/parse_issue.py
+
+      # 5. Step B: Run Reporting Script (Runs for all events)
+      - name: Run Reporting Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Pass the issue number if it exists, otherwise null (though reporting usually scans all)
+          TARGET_ISSUE: ${{ github.event.issue.number || '' }} 
+        run: |
+          python scripts/reporting.py
