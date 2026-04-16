@@ -17,3 +17,24 @@ body:
         - ssp999
     validations:
       required: true
+  - type: dropdown
+    id: resolution
+    attributes:
+      label: Experiment resolution (grid)
+      multiple: false
+      options:
+        - ne30pg3_tn14
+        - ne16pg3_tn14
+    validations:
+      required: true
+  - type: dropdown
+    id: run_type
+    attributes:
+      label: Experiment run time
+      multiple: false
+      options:
+        - initial
+        - branch
+        - hybrid
+    validations:
+      required: true
