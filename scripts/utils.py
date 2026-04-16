@@ -1,0 +1,41 @@
+from github import Github
+
+def get_last_updated_issue(github_token, repo_name):
+    """Find the actor who made the last change to this repo's issues.
+    Returns, the name of the last actor or none."""
+
+    ghubObj = Github(github_token)
+
+    repo = ghubObj.get_repo(repo_name)
+
+    # Fetch issues sorted by 'updated' in descending order (newest first)
+    # state='all' includes open, closed, and merged issues
+    issues = repo.get_issues(state='open', sort='updated', direction='desc')
+
+    # Get the first item (the most recently updated one)
+    try:
+        last_issue = next(issues)
+    except StopIteration:
+        last_issue = None
+    # end try
+
+def last_actor(github_token, repo_name):
+# Usage
+last_issue = get_last_updated_issue(github_token, repo_name)
+
+if last_issue:
+    print(f"Issue #{last_issue.number}: {last_issue.title}")
+    print(f"Last updated by: {last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'}")
+    print(f"Updated at: {last_issue.updated_at}")
+else:
+    print("No issues found in this repository.")
+
+
+# Get all events/timeline for the issue
+timeline = issue.get_timeline()
+
+# Get the last event
+last_event = list(timeline)[-1]
+
+print(f"Last action by: {last_event.actor.login}")
+print(f"Action type: {last_event.event}") # e.g., 'commented', 'closed', 'labeled'

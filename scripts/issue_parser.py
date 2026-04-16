@@ -11,7 +11,9 @@ def main():
     issue = repo.get_issue(number=issue_number)
 
     # Parse an issue
-    issue_body = None
+    issue_body = issue.body
+    issue_title = issue.title
+    last_committer =
 
     # Example: Modify title and body
     new_title = f"[Auto-Processed] {issue.title}"
@@ -19,7 +21,7 @@ def main():
 
     # Edit the issue via API
     issue.edit(title=new_title, body=new_body)
-    
+
     print(f"Updated issue #{issue_number}")
 
 if __name__ == "__main__":
