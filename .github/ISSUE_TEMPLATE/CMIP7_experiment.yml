@@ -64,3 +64,8 @@ body:
       default: 0
     validations:
       required: true
+- type: markdown
+  attributes:
+    value: |
+      ---
+      "## Do not enter anything below, this section is automated"
