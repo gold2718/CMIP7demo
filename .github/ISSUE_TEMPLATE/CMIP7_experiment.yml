@@ -38,18 +38,3 @@ body:
         - hybrid
     validations:
       required: true
-  - type: dropdown
-    id: project
-    attributes:
-      label: Project number
-      multiple: false
-      options:
-        - NN9560K
-      default: 0
-    validations:
-      required: true
-- type: markdown
-  attributes:
-    value: |
-      ---
-      "## Do not enter anything below, this section is automated"
