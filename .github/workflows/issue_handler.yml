@@ -36,7 +36,7 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           REPO_NAME: ${{ github.repository }}
         run: |
-          python scripts/parse_issue.py
+          python scripts/issue_parser.py
 
       # 5. Step B: Run Reporting Script (Runs for all events)
       - name: Run Reporting Script
