@@ -14,6 +14,7 @@ def get_last_updated_issue(ghubObj, repo):
     except StopIteration:
         last_issue = None
     # end try
+    return last_issue
 
 def last_actor(github, repo):
     """Find the GitHub ID of the last entity that modified an issue in
@@ -24,18 +25,10 @@ def last_actor(github, repo):
     if last_issue:
         last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'
         print(f"Issue #{last_issue.number}: {last_issue.title}")
-        print(f"Last updated by: {last_actor}")
         print(f"Updated at: {last_issue.updated_at}")
+        print(f"Last updated by: {last_event.actor.login}")
+        print(f"Action type: {last_event.event}")
     else:
         print("No issues found in this repository.")
-
-        # Get all events/timeline for the issue
-        timeline = issue.get_timeline()
-
-        # Get the last event
-        last_event = list(timeline)[-1]
-
-        print(f"Last action by: {last_event.actor.login}")
-        print(f"Action type: {last_event.event}")
     # end if
     return last_actor
