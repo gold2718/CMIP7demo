@@ -25,18 +25,19 @@ jobs:
       # 3. Install Dependencies
       - name: Install Dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install requests pygithub
-          # Add other requirements from your requirements.txt here
 
       # 4. Step A: Parse and edit new or edited issue
-      - name: Run New Issue Script
+      - name: Run issue parser script
         if: github.event.action == 'opened' || github.event.action == 'edited'
         env:
+          ACCESS_TOKEN: ${{ secrets.WRITE_ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           REPO_NAME: ${{ github.repository }}
         run: |
-          python scripts/issue_parser.py
+          python .github/scripts/issue_parser.py --access-token $ACCESS_TOKEN --issue-num $ISSUE_NUMBER --repo-name $REPO_NAME
 
       # 5. Step B: Run Reporting Script (Runs for all events)
       - name: Run Reporting Script
@@ -45,4 +46,4 @@ jobs:
           # Pass the issue number if it exists, otherwise null (though reporting usually scans all)
           TARGET_ISSUE: ${{ github.event.issue.number || '' }}
         run: |
-          python scripts/reporting.py
+          python .github/scripts/reporting.py
