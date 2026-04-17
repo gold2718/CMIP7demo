@@ -15,7 +15,7 @@ def parse_arguments():
                         help="access token used to access GitHub API")
 
     parser.add_argument('--repo-name', metavar='<REPO_NAME>', action='store', type=str,
-                        default="",
+                        default="gold2718/CMIP7demo",
                         help="name of the repository that triggered this workflow")
 
     #Parse Argument inputs
