@@ -23,7 +23,9 @@ def last_actor(github, repo):
     last_issue = get_last_updated_issue(github, repo)
 
     if last_issue:
-        last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'
+        printf(f"Github actor: {github.actor}")
+        printf(f"Github triggering actor: {github.triggering_actor}")
+        printf(f"event user login: {github.event.comment.user.login}")
         print(f"Issue #{last_issue.number}: {last_issue.title}")
         print(f"Updated at: {last_issue.updated_at}")
         print(f"Last updated by: {last_event.actor.login}")
