@@ -35,6 +35,10 @@ def main():
     issue_number = args.issue_num
     repo_name = args.repo_name
 
+    if not repo_name:
+        raise ValueError("Blank repository name passed")
+    # end if
+
 #    token = Github.Auth.Token(os.getenv('GITHUB_TOKEN'))
 #    repo_full_name = os.getenv('REPO_NAME')
 #    issue_number = int(os.getenv('ISSUE_NUMBER'))
