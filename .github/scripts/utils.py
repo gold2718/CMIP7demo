@@ -37,8 +37,8 @@ def last_actor(github, repo):
         # end if
         print(f"Issue #{last_issue.number}: {last_issue.title}")
         print(f"Updated at: {last_issue.updated_at}")
-        print(f"Last updated by: {github.event.actor.login}")
-        print(f"Action type: {github.event.event}")
+#        print(f"Last updated by: {github.event.actor.login}")
+#        print(f"Action type: {github.event.event}")
     else:
         print("No issues found in this repository.")
     # end if
