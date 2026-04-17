@@ -16,6 +16,7 @@ def parse_arguments():
                         help="access token used to access GitHub API")
 
     parser.add_argument('--repo-name', metavar='<REPO_NAME>', action='store', type=str,
+                        default="",
                         help="name of the repository that triggered this workflow")
 
     parser.add_argument('--issue-num', metavar='<ISSUE_NUMBER>', action='store', type=str,
