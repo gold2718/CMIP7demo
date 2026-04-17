@@ -27,7 +27,6 @@ def main():
     # Parse arguments
     args = parse_arguments()
     token = args.access_token
-    issue_number = args.issue_num
     repo_name = args.repo_name
 
     if not token:
