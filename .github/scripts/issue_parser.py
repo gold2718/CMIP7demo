@@ -19,6 +19,7 @@ def parse_arguments():
                         help="name of the repository that triggered this workflow")
 
     parser.add_argument('--issue-num', metavar='<ISSUE_NUMBER>', action='store', type=str,
+                        default="",
                         help="Number of issue that triggered this workflow")
 
     #Parse Argument inputs
