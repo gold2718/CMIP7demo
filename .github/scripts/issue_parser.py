@@ -1,5 +1,5 @@
 import argparse
-from github import Github
+from github import Github, Auth
 import os
 from utils import last_actor
 
@@ -50,7 +50,7 @@ def main():
 #    issue_number = int(os.getenv('ISSUE_NUMBER'))
 
     try:
-        ghub = Github(token)
+        ghub = Github(Auth.token(token))
     except Exception as exc:
         raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
     # end try
@@ -63,7 +63,9 @@ def main():
         raise ValueError(f"Error, could not get repo from '{repo_name}'\n{str(exc)}")
     # end try
     try:
-        issue = repo.get_issue(number=issue_number)
+        issue = repo.get_issue(number=int(issue_number))
+    except ValueError as verr:
+        raise ValueError(f"Error, issue number, '{issue_number}', must be an integer")
     except Exception as exc:
         raise ValueError(f"Error, could not get issue from '{issue_number}'\n{str(exc)}")
     # end try
