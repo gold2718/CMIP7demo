@@ -14,7 +14,7 @@ def get_last_updated_issue(github_token, repo_name):
 
     # Get the first item (the most recently updated one)
     try:
-        last_issue = next(issues)
+        last_issue = issues[0]
     except StopIteration:
         last_issue = None
     # end try
