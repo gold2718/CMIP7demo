@@ -43,6 +43,7 @@ jobs:
       - name: Run Reporting Script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: ${{ github.event.repository.name }}
           # Pass the issue number if it exists, otherwise null (though reporting usually scans all)
           TARGET_ISSUE: ${{ github.event.issue.number || '' }}
         run: |
