@@ -49,9 +49,21 @@ def main():
 #    repo_full_name = os.getenv('REPO_NAME')
 #    issue_number = int(os.getenv('ISSUE_NUMBER'))
 
-    ghub = Github(token)
-    repo = ghub.get_repo(repo_name)
-    issue = repo.get_issue(number=issue_number)
+    try:
+        ghub = Github(token)
+    except Exception as exc:
+        raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
+    # end try
+    try:
+        repo = ghub.get_repo(repo_name)
+    except Exception as exc:
+        raise ValueError(f"Error, could not get repo from '{repo_name}'\n{str(exc)}")
+    # end try
+    try:
+        issue = repo.get_issue(number=issue_number)
+    except Exception as exc:
+        raise ValueError(f"Error, could not get issue from '{issue_number}'\n{str(exc)}")
+    # end try
 
     # Parse an issue
     issue_body = issue.body
