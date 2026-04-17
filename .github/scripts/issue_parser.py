@@ -55,6 +55,9 @@ def main():
         raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
     # end try
     try:
+        if '/' not in repo_name:
+            repo_name = f"gold2718/{repo_name}"
+        # end if
         repo = ghub.get_repo(repo_name)
     except Exception as exc:
         raise ValueError(f"Error, could not get repo from '{repo_name}'\n{str(exc)}")
