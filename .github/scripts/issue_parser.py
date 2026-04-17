@@ -50,7 +50,7 @@ def main():
 #    issue_number = int(os.getenv('ISSUE_NUMBER'))
 
     try:
-        ghub = Github(Auth.token(token))
+        ghub = Github(Auth.Token(token))
     except Exception as exc:
         raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
     # end try
