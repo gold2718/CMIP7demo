@@ -52,8 +52,15 @@ def main():
     try:
         ghub = Github(Auth.Token(token))
     except Exception as exc:
-        raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
+        ghub = None
     # end try
+    if not ghub:
+        try:
+            ghub = Github(token)
+        except Exception as exc:
+            raise ValueError(f"Error, could not create Github object from '{token}'\n{str(exc)}")
+        # end try
+    # end if
     try:
         if '/' not in repo_name:
             repo_name = f"gold2718/{repo_name}"
