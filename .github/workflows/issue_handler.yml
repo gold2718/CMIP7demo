@@ -31,13 +31,13 @@ jobs:
       # 4. Step A: Parse and edit new or edited issue
       - name: Run issue parser script
         if: github.event.action == 'opened' || github.event.action == 'edited'
-          env:
-            ACCESS_TOKEN: ${{ secrets.WRITE_ACCESS_TOKEN }}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            ISSUE_NUMBER: ${{ github.event.issue.number }}
-            REPO_NAME: ${{ github.event.repository.name }}
-          run: |
-            python .github/scripts/issue_parser.py --access-token "$ACCESS_TOKEN" --issue-num "$ISSUE_NUMBER" --repo-name "$REPO_NAME"
+        env:
+          ACCESS_TOKEN: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          python .github/scripts/issue_parser.py --access-token "$GITHUB_TOKEN" --issue-num "$ISSUE_NUMBER" --repo-name "$REPO_NAME"
 
       # 5. Step B: Run Reporting Script (Runs for all events)
       - name: Run Reporting Script
