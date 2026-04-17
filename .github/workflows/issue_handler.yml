@@ -46,4 +46,4 @@ jobs:
           # Pass the issue number if it exists, otherwise null (though reporting usually scans all)
           TARGET_ISSUE: ${{ github.event.issue.number || '' }}
         run: |
-          python .github/scripts/reporting.py
+          python .github/scripts/generate_reports.py --access-token "$GITHUB_TOKEN" --repo-name "$REPO_NAME"

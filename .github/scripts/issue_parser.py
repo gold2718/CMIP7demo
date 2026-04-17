@@ -45,10 +45,6 @@ def main():
         raise ValueError("Blank issue number passed")
     # end if
 
-#    token = Github.Auth.Token(os.getenv('GITHUB_TOKEN'))
-#    repo_full_name = os.getenv('REPO_NAME')
-#    issue_number = int(os.getenv('ISSUE_NUMBER'))
-
     try:
         ghub = Github(Auth.Token(token))
     except Exception as exc:
