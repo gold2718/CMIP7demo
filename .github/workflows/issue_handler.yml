@@ -10,7 +10,7 @@ jobs:
     permissions:
       issues: write  # Required to edit issue title/body
       contents: read # Required to checkout code for scripts
-    
+
     steps:
       # 1. Checkout the repository code so scripts are available
       - name: Checkout Repository
@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      
+
       # 3. Install Dependencies
       - name: Install Dependencies
         run: |
@@ -30,7 +30,7 @@ jobs:
 
       # 4. Step A: Parse and edit new or edited issue
       - name: Run New Issue Script
-        if: github.event.action in ['opened', 'edited']
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -43,6 +43,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Pass the issue number if it exists, otherwise null (though reporting usually scans all)
-          TARGET_ISSUE: ${{ github.event.issue.number || '' }} 
+          TARGET_ISSUE: ${{ github.event.issue.number || '' }}
         run: |
           python scripts/reporting.py

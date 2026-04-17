@@ -20,22 +20,26 @@ def get_last_updated_issue(github_token, repo_name):
     # end try
 
 def last_actor(github_token, repo_name):
-# Usage
-last_issue = get_last_updated_issue(github_token, repo_name)
+    """Find the GitHub ID of the last entity that modified an issue in
+    <repo_name>"""
+    last_actor = None
+    last_issue = get_last_updated_issue(github_token, repo_name)
 
-if last_issue:
-    print(f"Issue #{last_issue.number}: {last_issue.title}")
-    print(f"Last updated by: {last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'}")
-    print(f"Updated at: {last_issue.updated_at}")
-else:
-    print("No issues found in this repository.")
+    if last_issue:
+        last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'
+        print(f"Issue #{last_issue.number}: {last_issue.title}")
+        print(f"Last updated by: {last_actor}")
+        print(f"Updated at: {last_issue.updated_at}")
+    else:
+        print("No issues found in this repository.")
 
+        # Get all events/timeline for the issue
+        timeline = issue.get_timeline()
 
-# Get all events/timeline for the issue
-timeline = issue.get_timeline()
+        # Get the last event
+        last_event = list(timeline)[-1]
 
-# Get the last event
-last_event = list(timeline)[-1]
-
-print(f"Last action by: {last_event.actor.login}")
-print(f"Action type: {last_event.event}") # e.g., 'commented', 'closed', 'labeled'
+        print(f"Last action by: {last_event.actor.login}")
+        print(f"Action type: {last_event.event}")
+    # end if
+    return last_actor

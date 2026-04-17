@@ -1,5 +1,6 @@
 import os
 from github import Github
+from utils import last_actor
 
 def main():
     token = os.getenv('GITHUB_TOKEN')
@@ -13,16 +14,18 @@ def main():
     # Parse an issue
     issue_body = issue.body
     issue_title = issue.title
-    last_committer =
+    last_committer = last_actor(token, repo_full_name)
 
-    # Example: Modify title and body
-    new_title = f"[Auto-Processed] {issue.title}"
-    new_body = f"{issue.body}\n\n> *This issue was processed by the automation bot.*"
+    if last_actor != "gold2718":
+        # Example: Modify title and body
+        new_title = f"[Auto-Processed] {issue.title}"
+        new_body = f"{issue.body}\n\n> *This issue was processed by the automation bot.*"
 
-    # Edit the issue via API
-    issue.edit(title=new_title, body=new_body)
+        # Edit the issue via API
+        issue.edit(title=new_title, body=new_body)
 
-    print(f"Updated issue #{issue_number}")
+        print(f"Updated issue #{issue_number}")
 
+#===================================
 if __name__ == "__main__":
     main()
