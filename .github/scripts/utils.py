@@ -1,12 +1,8 @@
 from github import Github
 
-def get_last_updated_issue(github_token, repo_name):
+def get_last_updated_issue(ghubObj, repo):
     """Find the actor who made the last change to this repo's issues.
     Returns, the name of the last actor or none."""
-
-    ghubObj = Github(github_token)
-
-    repo = ghubObj.get_repo(repo_name)
 
     # Fetch issues sorted by 'updated' in descending order (newest first)
     # state='all' includes open, closed, and merged issues
@@ -19,11 +15,11 @@ def get_last_updated_issue(github_token, repo_name):
         last_issue = None
     # end try
 
-def last_actor(github_token, repo_name):
+def last_actor(github, repo):
     """Find the GitHub ID of the last entity that modified an issue in
     <repo_name>"""
     last_actor = None
-    last_issue = get_last_updated_issue(github_token, repo_name)
+    last_issue = get_last_updated_issue(github, repo)
 
     if last_issue:
         last_issue.last_edited_by.login if last_issue.last_edited_by else 'Unknown'
