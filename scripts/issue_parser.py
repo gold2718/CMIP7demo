@@ -3,7 +3,7 @@ from github import Github
 from utils import last_actor
 
 def main():
-    token = github.Auth.Token(os.getenv('GITHUB_TOKEN'))
+    token = Github.Auth.Token(os.getenv('GITHUB_TOKEN'))
     repo_full_name = os.getenv('REPO_NAME')
     issue_number = int(os.getenv('ISSUE_NUMBER'))
 
