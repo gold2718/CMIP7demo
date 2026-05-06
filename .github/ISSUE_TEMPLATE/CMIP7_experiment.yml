@@ -9,11 +9,11 @@ body:
       multiple: false
       options:
         - piControl, concentration driven (N1850)
-        - piControl, emissions driven (N1850ems)
-        - historical, concentration (NHIST)
-        - historical, emissions (NHISTems)
+        - piControl, emissions driven (N1850Esm)
+        - historical, concentration (NHist)
+        - historical, emissions (NHistEsm)
         - N2000
-        - N2000ems
+        - N2000Ems
         - ssp999
     validations:
       required: true
@@ -30,7 +30,7 @@ body:
   - type: dropdown
     id: run_type
     attributes:
-      label: Experiment run time
+      label: Experiment run type
       multiple: false
       options:
         - initial
@@ -38,6 +38,22 @@ body:
         - hybrid
     validations:
       required: true
+  - type: input
+    id: run_startyear
+    attributes:
+      label: Case start year
+      description: Case start year
+      placeholder: e.g., 0000, 1850
+    validations:
+      required: false
+  - type: input
+    id: run_stopyear
+    attributes:
+      label: Case stop year
+      description: Case stop year
+      placeholder: e.g., 0300, 2010
+    validations:
+      required: false
   - type: input
     id: RUN_REFCASE
     attributes:
@@ -62,6 +78,23 @@ body:
       value: "00000"
     validations:
       required: false
+  - type: input
+    id: SRC_TAG
+    attributes:
+      label: Source tag
+      description: NorESM tag for experiment source code
+    validations:
+      required: true
+  - type: dropdown
+    id: machine
+    attributes:
+      label: Case machine
+      multiple: false
+      options:
+        - Betzy
+        - Olivia
+    validations:
+      required: true
   - type: dropdown
     id: project
     attributes:
