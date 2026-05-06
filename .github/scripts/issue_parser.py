@@ -68,14 +68,20 @@ class Case(dict):
 
     def __init__(self, body):
         """Parse an issue body for experiment info"""
+        super().__init__()
         self.__errors = []
         self.__bot_items = []
         need_value = False
         label_key = None
         line_num = 0
-        for line in body:
+        for line in body.splitlines():
             line_num += 1
-            if line and need_value:
+            line = line.strip()
+            if not line:
+                continue
+            # end if
+
+            if need_value:
                 if label_key and (label_key in self):
                     self.add_error(f"Duplicate issue key, '{label_key}'",
                                    line_num)
@@ -117,7 +123,7 @@ class Case(dict):
                 # end if (no else for now, could check label_value)
                 continue
             # end if
-            btext = __bot_txt_re.match(line)
+            btext = self.__bot_txt_re.match(line)
             if btext:
                 self.add_bot_text(btext.strip())
             # end if
