@@ -33,7 +33,7 @@ class Case(dict):
 
     __ex_compset_txt = "Experiment compset"
     __ex_grid_txt = "Experiment resolution (grid)"
-    __ex_grid_txt = "Experiment run type"
+    __ex_runtype_txt = "Experiment run type"
     __case_start_year_txt = "Case start year"
     __case_stop_year_txt = "Case stop year"
     __refcase_txt = "RUN_REFCASE"
@@ -45,7 +45,7 @@ class Case(dict):
 
     __keywords = {__ex_compset_txt: "compset",
                   __ex_grid_txt: "resolution",
-                  __ex_grid_txt: "run_type",
+                  __ex_runtype_txt: "run_type",
                   __case_start_year_txt: "run_startyear",
                   __case_stop_year_txt: "run_stopyear",
                   __refcase_txt: "RUN_REFCASE",
@@ -62,11 +62,11 @@ class Case(dict):
     # The way a label looks when issue is created
     __label_init_re = re.compile(r"[#]{3} (.*)$")
     # The way a label looks after issue auto-processing
-    __label_edit_re = re.compile(r"**([^:*]*):**[ ](.*)$")
+    __label_edit_re = re.compile(r"[*][*]([^:*]+):[*][*][ ](.*)$")
     # Find where bot comments start
     __bot_txt_re = re.compile(r"[>][ ]")
 
-    def __init__(body):
+    def __init__(self, body):
         """Parse an issue body for experiment info"""
         self.__errors = []
         self.__bot_items = []
@@ -74,7 +74,7 @@ class Case(dict):
         label_key = None
         line_num = 0
         for line in body:
-            line += 1
+            line_num += 1
             if line and need_value:
                 if label_key and (label_key in self):
                     self.add_error(f"Duplicate issue key, '{label_key}'",
