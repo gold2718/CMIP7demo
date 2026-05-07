@@ -55,6 +55,9 @@ class Case(dict):
                   __machine_txt: "machine",
                   __project_txt: "project"}
 
+    __case_path = {"Olivia": "/cluster/work/projects",
+                   "Betzy": "/cluster/projects"}
+
     KEYWORDS = ["compset", "resolution", "run_type", "run_startyear",
                 "run_stopyear", "RUN_REFCASE", "RUN_REFDATE", "RUN_REFTOD",
                 "SRC_TAG", "machine", "project"]
@@ -129,6 +132,43 @@ class Case(dict):
             # end if
         # end for
 
+    def get_prop(self, prop_name):
+        """Return a keyword property or None if not defined"""
+        if prop_name in self:
+            return self[prop_name]
+        # end if
+        return None
+
+    def case_name(self):
+        """Return a case name for this case or an error string"""
+        compset = self.get_prop("compset")
+        res = self.get_prop("resolution")
+        start = self.get_prop("run_startyear")
+        stop = self.get_prop("run_stopyear")
+        if compset and res and start and stop:
+            compset = compset.split(':')[0]
+            case_name = f"{compset}_{res}_{start}_{stop}"
+        else:
+            case_name = "ERROR: Missing case configuration items"
+        # end if
+        return case_name
+
+    def case_path(self):
+        """Return a case path for this case"""
+        machine = self.get_prop("machine") or "<case_path_for_machine>"
+        project = self.get_prop("project") or "<project>"
+        if machine in Case.__case_path:
+            cpath = Case.__case_path[machine]
+        else:
+            cpath = machine
+        # end if
+        return f"{cpath}/{project}/{self.case_name()}"
+
+
+    def newcase_cmd(self):
+        """Return a create_newcase command"""
+        pass
+
     def new_body(self):
         """Assemble and return a new body text"""
         body_lines = []
@@ -139,9 +179,7 @@ class Case(dict):
         # end for
         body_lines.append("")
         body_lines.extend(self.__bot_items)
-        for line in self.__errors:
-            body_lines.append(f"> **ERROR: {line}**")
-        # end for
+        body_lines.extend(self.__errors)
         return "\n".join(body_lines)
 
 
@@ -151,7 +189,7 @@ class Case(dict):
 
     def add_error(self, err_text, linenum):
         """Add an error to the body error list"""
-        self.__errors.append(f"{linenum}: {err_text}")
+        self.__errors.append(f"> **ERROR: {linenum}: {err_text}**")
 
     @property
     def num_errors(self):
@@ -215,7 +253,12 @@ def main():
     issue_case = Case(issue_body)
     if last_committer != "gold2718":
         # Example: Modify title and body
-        new_title = f"[Auto-Processed] {issue.title}"
+        case_name = issue_case.case_name()
+        if case_name:
+            new_title = case_name
+        else:
+            new_title = f"[ERRROS] {issue.title}"
+        # end if
         new_body = f"{issue_case.new_body()}\n\n> *This issue was processed by the automation bot.*"
 
         # Edit the issue via API
