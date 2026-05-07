@@ -8,10 +8,10 @@ body:
       label: Experiment compset
       multiple: false
       options:
-        - N1850: (piControl, concentration driven)
-        - N1850Esm: (piControl, emissions driven)
-        - NHist: (historical, concentration driven)
-        - NHistEsm: (historical, emissions driven)
+        - N1850; (piControl, concentration driven)
+        - N1850Esm; (piControl, emissions driven)
+        - NHist; (historical, concentration driven)
+        - NHistEsm; (historical, emissions driven)
         - N2000
         - N2000Ems
         - ssp999
