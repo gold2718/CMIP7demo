@@ -146,7 +146,8 @@ class Case(dict):
         start = self.get_prop("run_startyear")
         stop = self.get_prop("run_stopyear")
         if compset and res and start and stop:
-            compset = compset.split(':')[0]
+#            compset = compset.split(':')[0]
+            compset = str(type(compset))
             case_name = f"{compset}_{res}_{start}_{stop}"
         else:
             case_name = "ERROR: Missing case configuration items"
