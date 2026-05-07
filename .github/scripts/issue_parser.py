@@ -167,11 +167,30 @@ class Case(dict):
 
     def newcase_cmd(self):
         """Return a create_newcase command"""
-        pass
+        lines = []
+        compset = self.get_prop("compset")
+        res = self.get_prop("resolution")
+        machine = self.get_prop("machine")
+        project = self.get_prop("project")
+        lines.append("")
+        lines.append("```")
+        lines.append((f"./create_newcase "
+                      f"--case {self.case_path()}/{self.case_name()} "
+                      f"--compset {compset} --res {res} --machine {machine}"
+                      f"--project {project}"))
+        lines.append(f"")
+        lines.append("```")
+        lines.append("")
+        return lines
 
     def new_body(self):
         """Assemble and return a new body text"""
         body_lines = []
+        newcase = self.newcase_cmd()
+        if newcase:
+            body_lines.append("**Execute these commands to set up and run case**")
+            body_lines.extend(newcase)
+        # end if
         for key in self.KEYWORDS:
             if key in self:
                 body_lines.append(f"**{key}**: {self[key]}")
